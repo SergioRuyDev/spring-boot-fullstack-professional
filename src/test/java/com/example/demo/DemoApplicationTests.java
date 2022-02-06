@@ -11,7 +11,7 @@ class DemoApplicationTests {
 	Calculator underTest = new Calculator();
 
     @Test
-    void itShouldAddNumbers() {
+    void itShouldAddTwoNumbers() {
 		// given
 		int numberOne = 20;
 		int numberTwo = 30;
