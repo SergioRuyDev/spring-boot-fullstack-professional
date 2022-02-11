@@ -12,8 +12,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class StudentServiceTest {
@@ -83,18 +83,15 @@ class StudentServiceTest {
     @Test
     void canDeleteStudent() {
         //given
-        Long id = 1L;
-        Student student = new Student(
-                id,
-                "Sergio",
-                "sergio@gmail.com",
-                Gender.MALE
-        );
+        long studentId = 1L;
+
+        willDoNothing().given(studentRepository).deleteById(1L);
+
         //when
-        given(studentRepository.existsById(anyLong()));
-        underTest.deleteStudent(id);
+        underTest.deleteStudent(1L);
+
         //then
-        verify(studentRepository).deleteById(anyLong());
+        verify(studentRepository, times(1)).deleteById(studentId);
 
     }
 }
